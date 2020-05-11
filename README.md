@@ -3,7 +3,7 @@
 This is a BART version of sequence-to-sequence model for open-domain QA in a closed-book setup, based on [PyTorch](https://pytorch.org/) and [Huggingface's Transformers](https://github.com/huggingface/transformers).
 
 The model is a sequence-to-sequence model that takes a question as an input and outputs the answer, without reading any external resource (e.g. passages).
-Please refer to [Roberts et al., 2020, How Much Knowledge Can You Pack Into the Parameters of a Language Model?](https://arxiv.org/abs/2002.08910) to learn more about closed-book QA setup and the original model based on T5 (Code available [here](https://colab.research.google.com/github/google-research/text-to-text-transfer-transformer/blob/master/notebooks/t5-trivia.ipynb)).
+Please refer to [Roberts et al., 2020, How Much Knowledge Can You Pack Into the Parameters of a Language Model?](https://arxiv.org/abs/2002.08910) to learn more about closed-book QA setup and the original model based on T5. Their code and model checkpoints are available [here](https://github.com/google-research/google-research/tree/master/t5_closed_book_qa).
 
 The model is based on BART-large. Please refer to [Lewis et al., ACL 2020, BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension](https://arxiv.org/abs/1910.13461) to learn more about BART.
 
