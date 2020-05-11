@@ -45,8 +45,6 @@ def run(args, logger):
         scheduler =  get_linear_schedule_with_warmup(optimizer,
                                         num_warmup_steps=args.warmup_steps,
                                         num_training_steps=100000)
-        for _ in range(34000):
-            scheduler.step()
         train(args, logger, model, train_data, dev_data, optimizer, scheduler)
 
     if args.do_predict:
