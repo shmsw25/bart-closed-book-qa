@@ -76,8 +76,10 @@ We made the best model checkpoint and the predictions on the dev/test data avail
 - [Best checkpoint + Dev/Test prediction (1.8G)][1]
 - [Dev/test predictions only (228K)][2]
 
-Note that T5-based model gets 27.0, 29.8, 32.1 and 34.5 on the test set with Base, Large, 3B and 11B, respectively, based on [the original paper](https://arxiv.org/pdf/2002.08910.pdf). Several factors could lead to the performance gaps: (i) T5 has a larger number of parameters and trained on a larger set of data (including unsupervised data and supervised data, including QA data), and (ii) the original paper includes the dev data for training, whereas our codebase only trains the model on the train data and uses the dev data for choosing the best checkpoint.
+Note that T5-based model gets 27.0, 29.8, 32.1 and 34.5 on the test set with Base, Large, 3B and 11B, respectively, based on [the original paper](https://arxiv.org/pdf/2002.08910.pdf). Several factors could lead to the performance gaps: (i) T5 has a larger number of parameters and trained on a larger set of data and (ii) the original paper includes the dev data for training, whereas our codebase only trains the model on the train data and uses the dev data for choosing the best checkpoint.
 We also did not perform any hyperparamter tuning, as our goal is to provide the basic codebase rather than to achieve the best possible performance; we leave it for the future work.
+
+Note: that the original paper includes ablations that exclude supervised data for T5 pretraining, and reports comparable (or better) numbers: see Appendix C of [the original paper](https://arxiv.org/pdf/2002.08910.pdf) for the details!
 
 ## Contact
 
