@@ -34,7 +34,9 @@ def run(args, logger):
             model = MyBart.from_pretrained("bart-large")
         if args.n_gpu>1:
             model = torch.nn.DataParallel(model)
-        model.to(torch.device("cuda"))
+
+        if torch.cuda.is_available():
+            model.to(torch.device("cuda"))
 
         no_decay = ['bias', 'LayerNorm.weight']
         optimizer_grouped_parameters = [
@@ -58,7 +60,8 @@ def run(args, logger):
         model = MyBart.from_pretrained("bart-large",
                                        state_dict=convert_to_single_gpu(torch.load(checkpoint)))
         logger.info("Loading checkpoint from {}".format(checkpoint))
-        model.to(torch.device("cuda"))
+        if torch.cuda.is_available():
+            model.to(torch.device("cuda"))
         model.eval()
         ems = inference(model, dev_data, save_predictions=True)
         logger.info("%s on %s data: %.2f" % (dev_data.metric, dev_data.data_type, np.mean(ems)*100))
@@ -74,7 +77,8 @@ def train(args, logger, model, train_data, dev_data, optimizer, scheduler):
     for epoch in range(int(args.num_train_epochs)):
         for batch in train_data.dataloader:
             global_step += 1
-            batch = [b.to(torch.device("cuda")) for b in batch]
+            if torch.cuda.is_available():
+                batch = [b.to(torch.device("cuda")) for b in batch]
             loss = model(input_ids=batch[0], attention_mask=batch[1],
                          decoder_input_ids=batch[2], decoder_attention_mask=batch[3],
                          is_training=True)
@@ -124,7 +128,8 @@ def inference(model, dev_data, save_predictions=False):
     predictions = []
     bos_token_id = dev_data.tokenizer.bos_token_id
     for i, batch in enumerate(dev_data.dataloader):
-        batch = [b.to(torch.device("cuda")) for b in batch]
+        if torch.cuda.is_available():
+            batch = [b.to(torch.device("cuda")) for b in batch]
         outputs = model.generate(input_ids=batch[0],
                                  attention_mask=batch[1],
                                  num_beams=dev_data.args.num_beams,
